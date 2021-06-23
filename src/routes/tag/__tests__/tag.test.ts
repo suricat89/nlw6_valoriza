@@ -26,4 +26,20 @@ describe('POST /tag', () => {
       expect(response.status).toBe(StatusCodes.OK);
     });
   });
+
+  describe('Insert tag with error', () => {
+    it('[HTTP 400] should return an error if tag name already exists', async () => {
+      const response = await agent(app).post('/tag').send({
+        name: 'Test tag',
+      });
+
+      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+    });
+
+    it('[HTTP 400] should return an error if tag name is not provided', async () => {
+      const response = await agent(app).post('/tag');
+
+      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+    });
+  });
 });

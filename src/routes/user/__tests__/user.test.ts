@@ -28,4 +28,25 @@ describe('POST /user', () => {
       expect(response.status).toBe(StatusCodes.OK);
     });
   });
+
+  describe('Insert user with error', () => {
+    it('[HTTP 400] should return an error if email already exists', async () => {
+      const response = await agent(app).post('/user').send({
+        name: 'Another user',
+        email: 'test@email.com',
+        admin: false,
+      });
+
+      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+    });
+
+    it('[HTTP 400] should return an error if email is not provided', async () => {
+      const response = await agent(app).post('/user').send({
+        name: 'Another user',
+        admin: false,
+      });
+
+      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+    });
+  });
 });
