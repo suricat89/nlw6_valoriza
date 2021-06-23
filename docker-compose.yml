@@ -2,7 +2,7 @@
 version: '3.1'
 
 services:
-  postgres:
+  postgres-development:
     image: postgres
     environment:
       POSTGRES_PASSWORD: 'development'
@@ -10,6 +10,19 @@ services:
       POSTGRES_DB: 'nlw6_valoriza'
     ports:
       - '15432:5432'
+    #volumes:
+    #  - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data
+    networks:
+      - postgres-compose-network
+
+  postgres-test:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 'test'
+      POSTGRES_USER: 'admin'
+      POSTGRES_DB: 'nlw6_valoriza'
+    ports:
+      - '15433:5432'
     #volumes:
     #  - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data
     networks:
@@ -23,7 +36,8 @@ services:
     ports:
       - '16543:80'
     depends_on:
-      - postgres
+      - postgres-development
+      - postgres-test
     networks:
       - postgres-compose-network
 

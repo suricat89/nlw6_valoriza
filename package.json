@@ -33,7 +33,8 @@
     "fix": "gts fix",
     "prepare": "yarn run compile",
     "test": "yarn jest",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "runMigrations": "yarn typeorm migration:run"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
