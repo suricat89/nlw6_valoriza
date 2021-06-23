@@ -41,8 +41,5 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Run migrations
-        run: yarn runMigrations
-
       - name: Run tests
         run: yarn test
