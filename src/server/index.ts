@@ -1,10 +1,12 @@
 import 'reflect-metadata';
 import {createConnection} from 'typeorm';
 import express from 'express';
+import 'express-async-errors';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
 import environment from '../config/environment';
-import routes from './routes';
+import router from './router';
+import {errorHandler} from './middlewares/errorHandler';
 
 export const _initApp = async () => {
   const app = express();
@@ -12,7 +14,9 @@ export const _initApp = async () => {
 
   app.use(express.json());
   app.use(pinoHttp({logger}));
-  routes(app);
+  app.use(router);
+
+  app.use(errorHandler);
 
   return app;
 };

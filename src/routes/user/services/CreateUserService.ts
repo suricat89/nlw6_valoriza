@@ -1,14 +1,14 @@
 import UserRepository from '../user.repository';
 import {getCustomRepository} from 'typeorm';
 
-interface IUserRequest {
+interface ICreateUserRequest {
   name: string;
   email: string;
   admin?: boolean;
 }
 
 export default class CreateUserService {
-  async execute({name, email, admin}: IUserRequest) {
+  async execute({name, email, admin}: ICreateUserRequest) {
     const usersRepository = getCustomRepository(UserRepository);
 
     if (!email) {
