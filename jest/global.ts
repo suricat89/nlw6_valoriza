@@ -29,11 +29,27 @@ export const databaseConnection = {
 
   async clear() {
     const connection = getConnection();
-    const entities = connection.entityMetadatas;
+    let entities = connection.entityMetadatas;
+    const sequenceEntities = ['compliments', 'users', 'tags'];
 
-    entities.forEach(async entity => {
-      const repository = connection.getRepository(entity.name);
-      await repository.query(`DELETE FROM ${entity.tableName}`);
+    entities = entities.sort((a, b) => {
+      const sequenceA = sequenceEntities.indexOf(a.tableName);
+      const sequenceB = sequenceEntities.indexOf(b.tableName);
+      return sequenceA - sequenceB;
     });
+
+    for (let i = 0, length = entities.length; i < length; i++) {
+      const entity = entities[i];
+
+      console.log(`Cleaning table "${entity.tableName}"`);
+      const repository = connection.getRepository(entity.name);
+      const resultDelete = await repository.query(
+        `DELETE FROM ${entity.tableName}`
+      );
+      console.log(
+        `Table "${entity.tableName}" cleaned successfully: `,
+        resultDelete
+      );
+    }
   },
 };

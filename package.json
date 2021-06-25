@@ -9,6 +9,7 @@
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-typescript": "^7.14.5",
+    "@types/async": "^3.2.6",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.12",
     "@types/jest": "^26.0.23",
@@ -34,11 +35,13 @@
     "compile": "tsc",
     "fix": "gts fix",
     "prepare": "yarn run compile",
+    "pretest": "ts-node-dev jest/jest.pretest.ts",
     "test": "yarn jest",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "runMigrations": "yarn typeorm migration:run"
   },
   "dependencies": {
+    "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
