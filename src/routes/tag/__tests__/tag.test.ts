@@ -8,11 +8,10 @@ let app: Express.Application;
 beforeAll(async () => {
   app = await _initApp();
   await databaseConnection.create();
-  await databaseConnection.clear();
+  // await databaseConnection.clear();
 });
 
 afterAll(async () => {
-  await databaseConnection.clear();
   await databaseConnection.close();
 });
 

@@ -5,6 +5,10 @@ export default {
     nodeEnv: process.env.NODE_ENV || 'development',
     port: process.env.PORT || '5000',
   },
+  jwt: {
+    secret: process.env.JWT_SECRET || 'test',
+    expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+  },
   database: {
     type: process.env.DATABASE_TYPE || 'postgres',
     host: process.env.DATABASE_HOST || 'localhost',
