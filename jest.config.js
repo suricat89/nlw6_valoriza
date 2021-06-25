@@ -10,6 +10,7 @@ module.exports = {
     '/config/',
     '/server/',
     '/common/',
+    '/migrations/',
   ],
   coverageThreshold: {
     global: {
