@@ -1,3 +1,6 @@
+[![ci-test](https://github.com/suricat89/nlw6_valoriza/actions/workflows/cy.yml/badge.svg)](https://github.com/suricat89/nlw6_valoriza/actions/workflows/cy.yml)
+[![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
+
 # NLW#6 Valoriza
 
 ## Technologies
@@ -9,6 +12,7 @@
 - JWT with a per route access level validation
 - Joi (for smart request input validation)
 - Jest (integrated tests with 98% coverage!)
+- Github CI
 
 ## What is it?
 
