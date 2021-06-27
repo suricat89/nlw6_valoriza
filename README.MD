@@ -41,5 +41,5 @@ yarn dev
 | DATABASE_HOST         | localhost     |
 | DATABASE_PORT         | 15432         |
 | DATABASE_USERNAME     | admin         |
-| DATABASE_PASSWORD     | devalopment   |
+| DATABASE_PASSWORD     | development   |
 | DATABASE_DATABASENAME | nlw6_valoriza |
