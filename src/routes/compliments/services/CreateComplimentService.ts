@@ -23,14 +23,9 @@ export default class CreateComplimentService {
       throw new Error('User receiver and user sender cannot be the same!');
     }
 
-    const userReceiverExists = userRepository.findOne(userReceiver);
+    const userReceiverExists = await userRepository.findOne(userReceiver);
     if (!userReceiverExists) {
       throw new Error('User receiver does not exist!');
-    }
-
-    const userSenderExists = userRepository.findOne(userSender);
-    if (!userSenderExists) {
-      throw new Error('User sender does not exist!');
     }
 
     const compliment = complimentRepository.create({

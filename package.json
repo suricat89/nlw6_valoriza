@@ -35,7 +35,7 @@
     "compile": "tsc",
     "fix": "gts fix",
     "prepare": "yarn run compile",
-    "pretest": "ts-node-dev jest/jest.pretest.ts",
+    "pretest": "ts-node jest/jest.pretest.ts",
     "test": "yarn jest",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "runMigrations": "yarn typeorm migration:run"
@@ -43,6 +43,7 @@
   "dependencies": {
     "async": "^3.2.0",
     "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.4.0",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",

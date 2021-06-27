@@ -7,7 +7,7 @@ export default {
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'test',
-    expiresIn: process.env.JWT_EXPIRES_IN || '1d',
+    expiresIn: process.env.JWT_EXPIRES_IN,
   },
   database: {
     type: process.env.DATABASE_TYPE || 'postgres',

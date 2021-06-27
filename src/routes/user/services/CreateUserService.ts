@@ -2,7 +2,7 @@ import UserRepository from '../user.repository';
 import {getCustomRepository} from 'typeorm';
 import {hash} from 'bcryptjs';
 
-interface ICreateUserRequest {
+interface IServiceRequest {
   name: string;
   password: string;
   email: string;
@@ -10,7 +10,7 @@ interface ICreateUserRequest {
 }
 
 export default class CreateUserService {
-  async execute({name, password, email, admin}: ICreateUserRequest) {
+  async execute({name, password, email, admin}: IServiceRequest) {
     const usersRepository = getCustomRepository(UserRepository);
 
     if (!email) {

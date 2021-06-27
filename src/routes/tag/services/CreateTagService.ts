@@ -1,12 +1,12 @@
 import {getCustomRepository} from 'typeorm';
 import TagRepository from '../tag.repository';
 
-export interface ICreateTagRequest {
+export interface IServiceRequest {
   name: string;
 }
 
 export default class CreateTagService {
-  async execute({name}: ICreateTagRequest) {
+  async execute({name}: IServiceRequest) {
     const tagRepository = getCustomRepository(TagRepository);
 
     if (!name) {

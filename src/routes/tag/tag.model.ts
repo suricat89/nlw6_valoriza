@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import {v4 as uuid} from 'uuid';
+import {Expose} from 'class-transformer';
 
 @Entity('tags')
 export default class Tag {
@@ -19,7 +20,12 @@ export default class Tag {
   createdAt: Date;
 
   @UpdateDateColumn({name: 'updated_at'})
-  updated_at: Date;
+  updatedAt: Date;
+
+  @Expose({name: 'nameCustom'})
+  nameCustom(): string {
+    return `#${this.name}`;
+  }
 
   constructor() {
     if (!this.id) {

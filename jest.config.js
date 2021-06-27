@@ -11,12 +11,13 @@ module.exports = {
     '/server/',
     '/common/',
     '/migrations/',
+    '__data__',
   ],
   coverageThreshold: {
     global: {
       branches: 50,
-      functions: 50,
-      lines: 75,
+      functions: 80,
+      lines: 80,
     },
   },
   globals: {
@@ -27,6 +28,6 @@ module.exports = {
   extensionsToTreatAsEsm: ['.ts'],
   setupFilesAfterEnv: ['./jest/jest.setup.ts'],
   setupFiles: ['./jest/global.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/config/', '/build/'],
+  testPathIgnorePatterns: ['/node_modules/', '/config/', '/build/', '__data__'],
   verbose: true,
 };

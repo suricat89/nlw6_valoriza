@@ -1,16 +1,17 @@
 import {getCustomRepository} from 'typeorm';
 import UserRepository from '../user.repository';
 import {compare} from 'bcryptjs';
-import {sign} from 'jsonwebtoken';
+import {sign, SignOptions} from 'jsonwebtoken';
 import environment from '../../../config/environment';
+import {IJwtData} from '../../../common/types';
 
-interface IAuthenticateUserRequest {
+interface IServiceRequest {
   email: string;
   password: string;
 }
 
 export default class AuthenticateUserService {
-  async execute({email, password}: IAuthenticateUserRequest) {
+  async execute({email, password}: IServiceRequest) {
     const userRepository = getCustomRepository(UserRepository);
 
     const user = await userRepository.findOne({email});
@@ -24,12 +25,15 @@ export default class AuthenticateUserService {
       throw new Error('Email/password incorrect');
     }
 
+    const jwtOptions: SignOptions = {};
+    if (environment.jwt.expiresIn) {
+      jwtOptions.expiresIn = environment.jwt.expiresIn;
+    }
+
     const token = sign(
-      {email: user.email, admin: user.admin},
+      {email: user.email, admin: user.admin, userId: user.id} as IJwtData,
       environment.jwt.secret,
-      {
-        expiresIn: environment.jwt.expiresIn,
-      }
+      jwtOptions
     );
 
     return token;

@@ -1,5 +1,14 @@
 import {createConnection, getConnection} from 'typeorm';
 import environment from '../src/config/environment';
+import CreateTagService from '../src/routes/tag/services/CreateTagService';
+import AuthenticateUserService from '../src/routes/user/services/AuthenticateUserService';
+import CreateUserService from '../src/routes/user/services/CreateUserService';
+import userData from '../src/routes/user/__data__/user.data';
+import tagData from '../src/routes/tag/__data__/tag.data';
+import ListUserService from '../src/routes/user/services/ListUsersService';
+import ListTagService from '../src/routes/tag/services/ListTagService';
+import User from '../src/routes/user/user.model';
+import Tag from '../src/routes/tag/tag.model';
 
 export const configTestDatabase = () => {
   environment.database = {
@@ -20,6 +29,7 @@ export const configTestDatabase = () => {
 
 export const databaseConnection = {
   async create() {
+    configTestDatabase();
     await createConnection();
   },
 
@@ -52,4 +62,47 @@ export const databaseConnection = {
       );
     }
   },
+};
+
+const insertTestUsers = async () => {
+  const createUserService = new CreateUserService();
+  const listUserService = new ListUserService();
+
+  for (let i = 0, length = userData.initialUsers.length; i < length; i++) {
+    const user = userData.initialUsers[i];
+    const hasUser = await listUserService.execute({email: user.email} as User);
+    if (!hasUser || !hasUser.length) {
+      createUserService.execute(user);
+    }
+  }
+};
+
+const insertTestTags = async () => {
+  const createTagService = new CreateTagService();
+  const listTagService = new ListTagService();
+
+  for (let i = 0, length = tagData.initialTags.length; i < length; i++) {
+    const tag = tagData.initialTags[i];
+    const hasTag = await listTagService.execute({name: tag.name} as Tag);
+    if (!hasTag || !hasTag.length) {
+      createTagService.execute(tag);
+    }
+  }
+};
+
+export const generateToken = async (
+  email: string,
+  password: string,
+  valid = true
+) => {
+  environment.jwt.expiresIn = valid ? null : '0';
+
+  const authenticateUserService = new AuthenticateUserService();
+  const token = await authenticateUserService.execute({email, password});
+  return token;
+};
+
+export const populateTestData = async () => {
+  await insertTestUsers();
+  await insertTestTags();
 };
