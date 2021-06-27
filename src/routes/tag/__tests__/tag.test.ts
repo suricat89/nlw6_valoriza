@@ -51,13 +51,13 @@ describe('POST /tag', () => {
   });
 
   describe('Insert tag with error', () => {
-    it('[POST_E_001] [HTTP 400] should return an error if tag name already exists', async () => {
+    it('[POST_E_001] [HTTP 412] should return an error if tag name already exists', async () => {
       const response = await agent(app)
         .post('/tag')
         .set('Authorization', testData.adminToken)
         .send(tagsData.POST_E_001.request);
 
-      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
     });
 
     it('[POST_E_002] [HTTP 400] should return an error if tag name is not provided', async () => {

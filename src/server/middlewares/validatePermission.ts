@@ -1,6 +1,7 @@
 import {Request, RequestHandler} from 'express';
 import {StatusCodes} from 'http-status-codes';
 import jwt from 'jsonwebtoken';
+import {Unauthorized} from '../../common/errors';
 import {IJwtData} from '../../common/types';
 import environment from '../../config/environment';
 
@@ -21,7 +22,7 @@ export const validatePermission =
 const validateToken = async (req: Request) => {
   const fullToken = req.headers.authorization;
   if (!fullToken) {
-    throw new Error('Invalid token');
+    throw new Unauthorized('Invalid token');
   }
 
   const token = extractToken(fullToken);
@@ -30,7 +31,7 @@ const validateToken = async (req: Request) => {
     const decoded = jwt.verify(token, environment.jwt.secret) as IJwtData;
     embedTokenData(req, decoded);
   } catch (e) {
-    throw new Error('Invalid token');
+    throw new Unauthorized('Invalid token');
   }
 };
 

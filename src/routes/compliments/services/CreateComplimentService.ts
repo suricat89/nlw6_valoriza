@@ -1,4 +1,5 @@
 import {getCustomRepository} from 'typeorm';
+import {PreconditionFailed} from '../../../common/errors';
 import UserRepository from '../../user/user.repository';
 import ComplimentRepository from '../compliment.repository';
 
@@ -20,12 +21,14 @@ export default class CreateComplimentService {
     const userRepository = getCustomRepository(UserRepository);
 
     if (userSender === userReceiver) {
-      throw new Error('User receiver and user sender cannot be the same!');
+      throw new PreconditionFailed(
+        'User receiver and user sender cannot be the same!'
+      );
     }
 
     const userReceiverExists = await userRepository.findOne(userReceiver);
     if (!userReceiverExists) {
-      throw new Error('User receiver does not exist!');
+      throw new PreconditionFailed('User receiver does not exist!');
     }
 
     const compliment = complimentRepository.create({

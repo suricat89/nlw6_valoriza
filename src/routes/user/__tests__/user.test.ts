@@ -62,13 +62,13 @@ describe('POST /user', () => {
   });
 
   describe('Insert user with error', () => {
-    it('[POST_E_001] [HTTP 400] should return an error if email already exists', async () => {
+    it('[POST_E_001] [HTTP 412] should return an error if email already exists', async () => {
       const response = await agent(app)
         .post('/user')
         .set('Authorization', testData.adminToken)
         .send(usersData.POST_E_001.request);
 
-      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
     });
 
     it('[POST_E_002] [HTTP 400] should return an error if email is not provided', async () => {
@@ -94,20 +94,20 @@ describe('POST /user/auth', () => {
   });
 
   describe('Authenticate user with error', () => {
-    it('[POST_AUTH_E_001] [HTTP 400] should return an error if email is incorrect', async () => {
+    it('[POST_AUTH_E_001] [HTTP 412] should return an error if email is incorrect', async () => {
       const response = await agent(app)
         .post('/user/auth')
         .send(usersData.POST_AUTH_E_001.request);
 
-      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
     });
 
-    it('[POST_AUTH_E_002] [HTTP 400] should return an error if password is incorrect', async () => {
+    it('[POST_AUTH_E_002] [HTTP 412] should return an error if password is incorrect', async () => {
       const response = await agent(app)
         .post('/user/auth')
         .send(usersData.POST_AUTH_E_002.request);
 
-      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
     });
   });
 });

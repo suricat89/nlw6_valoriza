@@ -1,5 +1,6 @@
 import {RequestHandler} from 'express';
 import {ObjectSchema, AsyncValidationOptions} from 'joi';
+import {BadRequest} from '../../common/errors';
 
 export enum ValidateItem {
   BODY,
@@ -16,7 +17,11 @@ export const validateSchema = (
     if (validateItem === ValidateItem.BODY) obj = req.body;
     else obj = req.query;
 
-    await schema.validateAsync(obj, options);
-    next();
+    try {
+      await schema.validateAsync(obj, options);
+      next();
+    } catch (error) {
+      throw new BadRequest(error);
+    }
   };
 };

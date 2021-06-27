@@ -56,22 +56,22 @@ describe('POST /compliment', () => {
   });
 
   describe('Insert compliment with error', () => {
-    it('[POST_E_001] [HTTP 400] should return an error if receiver and send user are the same', async () => {
+    it('[POST_E_001] [HTTP 412] should return an error if receiver and send user are the same', async () => {
       const response = await agent(app)
         .post('/compliment')
         .set('Authorization', testData.nonAdminToken)
         .send(complimentsData.POST_E_001.request(testData));
 
-      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
     });
 
-    it('[POST_E_002] [HTTP 400] should return an error if receiver user does not exist', async () => {
+    it('[POST_E_002] [HTTP 412] should return an error if receiver user does not exist', async () => {
       const response = await agent(app)
         .post('/compliment')
         .set('Authorization', testData.nonAdminToken)
         .send(complimentsData.POST_E_002.request(testData));
 
-      expect(response.status).toBe(StatusCodes.BAD_REQUEST);
+      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
     });
   });
 });
