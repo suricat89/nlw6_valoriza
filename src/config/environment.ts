@@ -15,6 +15,7 @@ export default {
     port: Number.parseInt(process.env.DATABASE_PORT) || 15432,
     username: process.env.DATABASE_USERNAME || 'admin',
     password: process.env.DATABASE_PASSWORD || 'development',
+    ssl: process.env.NODE_ENV === 'production' ? true : false,
     database: process.env.DATABASE_DATABASENAME || 'nlw6_valoriza',
     migrations: ['src/database/migrations/*{.js, .ts}'],
     entities: ['src/**/*.model{.js, .ts}'],
