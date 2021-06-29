@@ -16,8 +16,8 @@ export default {
     username: process.env.DATABASE_USERNAME || 'admin',
     password: process.env.DATABASE_PASSWORD || 'development',
     database: process.env.DATABASE_DATABASENAME || 'nlw6_valoriza',
-    migrations: ['src/database/migrations/*.ts'],
-    entities: ['src/**/*.model.ts'],
+    migrations: ['src/database/migrations/*{.js, .ts}'],
+    entities: ['src/**/*.model{.js, .ts}'],
     cli: {
       migrationsDir: 'src/database/migrations',
     },

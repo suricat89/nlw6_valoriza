@@ -1,5 +1,11 @@
-import environment from './src/config/environment';
+let environment;
+try {
+  environment = require('./src/config/environment').default;
+} catch (error) {
+  // eslint-disable-next-line node/no-unpublished-require
+  environment = require('./build/src/config/environment').default;
+}
 
-export default {
+module.exports = {
   ...environment.database,
 };
