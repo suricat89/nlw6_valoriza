@@ -11,7 +11,7 @@
 - Docker compose (just for development and local tests)
 - JWT with a per route access level validation
 - Joi (for smart request input validation)
-- Jest (integrated tests with 98% coverage!)
+- Jest (integrated tests with 99% coverage!)
 - Github CI
 
 ## What is it?

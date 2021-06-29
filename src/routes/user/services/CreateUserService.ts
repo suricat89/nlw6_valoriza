@@ -14,10 +14,6 @@ export default class CreateUserService {
   async execute({name, password, email, admin}: IServiceRequest) {
     const usersRepository = getCustomRepository(UserRepository);
 
-    if (!email) {
-      throw new PreconditionFailed('Invalid email');
-    }
-
     const userAlreadyExists = await usersRepository.findOne({
       email,
     });

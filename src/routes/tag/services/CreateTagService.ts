@@ -10,10 +10,6 @@ export default class CreateTagService {
   async execute({name}: IServiceRequest) {
     const tagRepository = getCustomRepository(TagRepository);
 
-    if (!name) {
-      throw new PreconditionFailed('Invalid name');
-    }
-
     const tagAlreadyExists = await tagRepository.findOne({name});
 
     if (tagAlreadyExists) {
