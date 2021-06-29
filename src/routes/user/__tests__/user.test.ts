@@ -6,6 +6,7 @@ import {databaseConnection, generateToken} from '../../../../jest/global';
 import User from '../user.model';
 import ListUserService from '../services/ListUsersService';
 import usersData from '../__data__/user.data';
+import CreateSuperUserService from '../services/CreateSuperUserService';
 
 let app: Express.Application;
 interface ITestData {
@@ -58,6 +59,20 @@ describe('POST /user', () => {
 
       expect(response.status).toBe(StatusCodes.OK);
       expect(response.body.admin).toBeFalsy();
+    });
+
+    it('[POST_S_003] [HTTP 200] should create super user on first launch', async () => {
+      const createSuperUserService = new CreateSuperUserService();
+      const user = await createSuperUserService.execute();
+
+      expect(user.admin).toBeTruthy();
+    });
+
+    it('[POST_S_003] [HTTP 200] should return super user created on first launch', async () => {
+      const createSuperUserService = new CreateSuperUserService();
+      const user = await createSuperUserService.execute();
+
+      expect(user.admin).toBeTruthy();
     });
   });
 

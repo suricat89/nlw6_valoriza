@@ -12,6 +12,7 @@ module.exports = {
     '/common/',
     '/migrations/',
     '__data__',
+    'ormconfig.ts',
   ],
   coverageThreshold: {
     global: {
