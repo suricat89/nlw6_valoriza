@@ -31,7 +31,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "start": "yarn compile && node ./build/src/index.js",
+    "start": "node ./build/src/index.js",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
