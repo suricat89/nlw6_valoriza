@@ -36,10 +36,10 @@
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "yarn compile",
+    "prepare": "yarn compile && yarn runMigrations",
     "pretest": "ts-node jest/jest.pretest.ts",
     "test": "yarn jest",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
     "runMigrations": "yarn typeorm migration:run"
   },
   "dependencies": {
