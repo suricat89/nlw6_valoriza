@@ -32,11 +32,12 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "start": "node ./build/src/index.js",
+    "prestart": "yarn runMigrations",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
-    "prepare": "yarn compile && yarn runMigrations",
+    "prepare": "yarn compile",
     "pretest": "ts-node jest/jest.pretest.ts",
     "test": "yarn jest",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js",
