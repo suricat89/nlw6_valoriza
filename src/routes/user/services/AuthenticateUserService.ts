@@ -4,7 +4,7 @@ import {compare} from 'bcryptjs';
 import {sign, SignOptions} from 'jsonwebtoken';
 import environment from '../../../config/environment';
 import {IJwtData} from '../../../common/types';
-import {PreconditionFailed} from '../../../common/errors';
+import {Forbidden} from '../../../common/errors';
 
 interface IServiceRequest {
   email: string;
@@ -18,12 +18,12 @@ export default class AuthenticateUserService {
     const user = await userRepository.findOne({email});
 
     if (!user) {
-      throw new PreconditionFailed('Email/password incorrect');
+      throw new Forbidden('Email/password incorrect');
     }
 
     const validatePassword = await compare(password, user.password);
     if (!validatePassword) {
-      throw new PreconditionFailed('Email/password incorrect');
+      throw new Forbidden('Email/password incorrect');
     }
 
     const jwtOptions: SignOptions = {};

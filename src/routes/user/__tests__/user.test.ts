@@ -114,7 +114,7 @@ describe('POST /user/auth', () => {
         .post('/user/auth')
         .send(usersData.POST_AUTH_E_001.request);
 
-      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
+      expect(response.status).toBe(StatusCodes.FORBIDDEN);
     });
 
     it('[POST_AUTH_E_002] [HTTP 412] should return an error if password is incorrect', async () => {
@@ -122,7 +122,7 @@ describe('POST /user/auth', () => {
         .post('/user/auth')
         .send(usersData.POST_AUTH_E_002.request);
 
-      expect(response.status).toBe(StatusCodes.PRECONDITION_FAILED);
+      expect(response.status).toBe(StatusCodes.FORBIDDEN);
     });
   });
 });
