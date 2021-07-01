@@ -35,6 +35,7 @@
     "prestart": "npm run build",
     "lint": "gts lint",
     "build": "tsc",
+    "tsc": "tsc",
     "fix": "gts fix",
     "pretest": "NODE_ENV=test ts-node jest/jest.pretest.ts",
     "test": "NODE_ENV=test npm run jest",
