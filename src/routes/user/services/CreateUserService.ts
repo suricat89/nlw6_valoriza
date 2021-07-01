@@ -2,6 +2,8 @@ import UserRepository from '../user.repository';
 import {getCustomRepository} from 'typeorm';
 import {hash} from 'bcryptjs';
 import {PreconditionFailed} from '../../../common/errors';
+import {classToPlain} from 'class-transformer';
+import {UserModel} from '../user.model';
 
 interface IServiceRequest {
   name: string;
@@ -32,6 +34,6 @@ export default class CreateUserService {
 
     await usersRepository.save(user);
 
-    return user;
+    return classToPlain(user) as UserModel;
   }
 }
