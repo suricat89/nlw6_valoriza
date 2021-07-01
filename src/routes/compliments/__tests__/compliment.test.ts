@@ -3,17 +3,17 @@ import {agent} from 'supertest';
 import {StatusCodes} from 'http-status-codes';
 import {_initApp} from '../../../server/';
 import {databaseConnection, generateToken} from '../../../../jest/global';
-import User from '../../user/user.model';
-import Tag from '../../tag/tag.model';
+import {UserModel} from '../../user/user.model';
+import {TagModel} from '../../tag/tag.model';
 import ListUserService from '../../user/services/ListUsersService';
 import ListTagService from '../../tag/services/ListTagService';
 import complimentsData from '../__data__/compliments.data';
 
 let app: Express.Application;
 export interface ITestData {
-  adminUser: User;
-  nonAdminUser: User;
-  tag: Tag;
+  adminUser: UserModel;
+  nonAdminUser: UserModel;
+  tag: TagModel;
   adminToken: string;
   nonAdminToken: string;
 }
@@ -26,10 +26,10 @@ beforeAll(async () => {
   const listUserService = new ListUserService();
   const listTagService = new ListTagService();
   testData.adminUser = (
-    await listUserService.execute({admin: true} as User)
+    await listUserService.execute({admin: true} as UserModel)
   ).pop();
   testData.nonAdminUser = (
-    await listUserService.execute({admin: false} as User)
+    await listUserService.execute({admin: false} as UserModel)
   ).pop();
   testData.tag = (await listTagService.execute()).pop();
   testData.adminToken = await generateToken(testData.adminUser.email, '123');

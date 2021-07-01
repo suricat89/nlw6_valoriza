@@ -7,24 +7,15 @@ import userData from '../src/routes/user/__data__/user.data';
 import tagData from '../src/routes/tag/__data__/tag.data';
 import ListUserService from '../src/routes/user/services/ListUsersService';
 import ListTagService from '../src/routes/tag/services/ListTagService';
-import User from '../src/routes/user/user.model';
-import Tag from '../src/routes/tag/tag.model';
+import {UserModel} from '../src/routes/user/user.model';
+import {TagModel} from '../src/routes/tag/tag.model';
+import ormconfig from '../ormconfig.js';
 
 export const configTestDatabase = () => {
-  environment.database = {
-    type: 'postgres',
-    host: 'localhost',
-    port: 15433,
-    username: 'admin',
-    password: 'test',
-    database: 'nlw6_valoriza',
-    migrations: ['src/database/migrations/*.ts'],
-    entities: ['src/**/*.model.ts'],
-    cli: {
-      migrationsDir: 'src/database/migrations',
-    },
-    migrationsRun: true,
-  };
+  ormconfig.port = 5433;
+  ormconfig.username = 'admin';
+  ormconfig.password = 'test';
+  ormconfig.migrationsRun = true;
 };
 
 export const databaseConnection = {
@@ -70,7 +61,9 @@ const insertTestUsers = async () => {
 
   for (let i = 0, length = userData.initialUsers.length; i < length; i++) {
     const user = userData.initialUsers[i];
-    const hasUser = await listUserService.execute({email: user.email} as User);
+    const hasUser = await listUserService.execute({
+      email: user.email,
+    } as UserModel);
     if (!hasUser || !hasUser.length) {
       createUserService.execute(user);
     }
@@ -83,7 +76,7 @@ const insertTestTags = async () => {
 
   for (let i = 0, length = tagData.initialTags.length; i < length; i++) {
     const tag = tagData.initialTags[i];
-    const hasTag = await listTagService.execute({name: tag.name} as Tag);
+    const hasTag = await listTagService.execute({name: tag.name} as TagModel);
     if (!hasTag || !hasTag.length) {
       createTagService.execute(tag);
     }

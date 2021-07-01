@@ -3,15 +3,15 @@ import {agent} from 'supertest';
 import {StatusCodes} from 'http-status-codes';
 import {_initApp} from '../../../server/';
 import {databaseConnection, generateToken} from '../../../../jest/global';
-import User from '../user.model';
+import {UserModel} from '../user.model';
 import ListUserService from '../services/ListUsersService';
 import usersData from '../__data__/user.data';
 import CreateSuperUserService from '../services/CreateSuperUserService';
 
 let app: Express.Application;
 interface ITestData {
-  adminUser: User;
-  nonAdminUser: User;
+  adminUser: UserModel;
+  nonAdminUser: UserModel;
   adminToken: string;
   nonAdminToken: string;
 }
@@ -23,10 +23,10 @@ beforeAll(async () => {
 
   const listUserService = new ListUserService();
   testData.adminUser = (
-    await listUserService.execute({admin: true} as User)
+    await listUserService.execute({admin: true} as UserModel)
   ).pop();
   testData.nonAdminUser = (
-    await listUserService.execute({admin: false} as User)
+    await listUserService.execute({admin: false} as UserModel)
   ).pop();
   testData.adminToken = await generateToken(testData.adminUser.email, '123');
   testData.nonAdminToken = await generateToken(

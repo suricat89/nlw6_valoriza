@@ -9,7 +9,7 @@ import {
 import {v4 as uuid} from 'uuid';
 
 @Entity('users')
-export default class User {
+export class UserModel {
   @PrimaryColumn()
   readonly id: string;
 

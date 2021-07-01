@@ -1,11 +1,11 @@
-import Tag from '../tag.model';
+import {TagModel} from '../tag.model';
 
 export default {
   initialTags: [
     {
       name: 'Test tag 1',
     },
-  ] as Tag[],
+  ] as TagModel[],
   POST_S_001: {
     request: {
       name: 'Test tag',

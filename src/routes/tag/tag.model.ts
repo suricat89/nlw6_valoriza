@@ -9,7 +9,7 @@ import {v4 as uuid} from 'uuid';
 import {Expose} from 'class-transformer';
 
 @Entity('tags')
-export default class Tag {
+export class TagModel {
   @PrimaryColumn()
   readonly id: string;
 

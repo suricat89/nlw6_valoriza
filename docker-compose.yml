@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: 'admin'
       POSTGRES_DB: 'nlw6_valoriza'
     ports:
-      - '15432:5432'
+      - '5432:5432'
     #volumes:
     #  - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data
     networks:
@@ -22,7 +22,7 @@ services:
       POSTGRES_USER: 'admin'
       POSTGRES_DB: 'nlw6_valoriza'
     ports:
-      - '15433:5432'
+      - '5433:5432'
     #volumes:
     #  - /home/renatogroffe/Desenvolvimento/Docker-Compose/PostgreSQL:/var/lib/postgresql/data
     networks:

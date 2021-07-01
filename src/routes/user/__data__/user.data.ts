@@ -1,4 +1,4 @@
-import User from '../user.model';
+import {UserModel} from '../user.model';
 
 export default {
   initialUsers: [
@@ -13,7 +13,7 @@ export default {
       email: 'test.user.2@email.com',
       password: '123',
     },
-  ] as User[],
+  ] as UserModel[],
   POST_S_001: {
     request: {
       name: 'Another user 1',

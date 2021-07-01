@@ -7,11 +7,11 @@ import {
   ManyToOne,
 } from 'typeorm';
 import {v4 as uuid} from 'uuid';
-import Tag from '../tag/tag.model';
-import User from '../user/user.model';
+import {TagModel} from '../tag/tag.model';
+import {UserModel} from '../user/user.model';
 
 @Entity('compliments')
-export default class Compliment {
+export class ComplimentModel {
   @PrimaryColumn()
   readonly id: string;
 
@@ -19,22 +19,22 @@ export default class Compliment {
   userSenderId: string;
 
   @JoinColumn({name: 'user_sender', referencedColumnName: 'id'})
-  @ManyToOne(() => User)
-  userSender: User;
+  @ManyToOne(() => UserModel)
+  userSender: UserModel;
 
   @Column({name: 'user_receiver'})
   userReceiverId: string;
 
   @JoinColumn({name: 'user_receiver', referencedColumnName: 'id'})
-  @ManyToOne(() => User)
-  userReceiver: User;
+  @ManyToOne(() => UserModel)
+  userReceiver: UserModel;
 
   @Column({name: 'tag_id'})
   tagId: string;
 
   @JoinColumn({name: 'tag_id', referencedColumnName: 'id'})
-  @ManyToOne(() => Tag)
-  tag: Tag;
+  @ManyToOne(() => TagModel)
+  tag: TagModel;
 
   @Column()
   message: string;

@@ -30,18 +30,17 @@
     "typescript": "^4.0.3"
   },
   "scripts": {
-    "dev": "ts-node-dev src/index.ts",
-    "start": "node ./build/src/index.js",
-    "prestart": "yarn runMigrations",
+    "dev": "NODE_ENV=development ts-node-dev src/index.ts",
+    "start": "node build/src/index.js",
+    "prestart": "npm run build",
     "lint": "gts lint",
-    "clean": "gts clean",
-    "compile": "tsc",
+    "build": "tsc",
     "fix": "gts fix",
-    "prepare": "yarn compile",
-    "pretest": "ts-node jest/jest.pretest.ts",
-    "test": "yarn jest",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
-    "runMigrations": "yarn typeorm migration:run"
+    "pretest": "NODE_ENV=test ts-node jest/jest.pretest.ts",
+    "test": "NODE_ENV=test npm run jest",
+    "jest": "node_modules/.bin/jest",
+    "typeorm": "node ./node_modules/typeorm/cli.js",
+    "runMigrations": "npm run typeorm migration:run"
   },
   "dependencies": {
     "async": "^3.2.0",
