@@ -32,7 +32,7 @@
   "scripts": {
     "dev": "NODE_ENV=development ts-node-dev src/index.ts",
     "start": "node build/src/index.js",
-    "prestart": "npm run build",
+    "postinstall": "npm run build",
     "lint": "gts lint",
     "build": "tsc",
     "tsc": "tsc",
