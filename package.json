@@ -19,7 +19,9 @@
     "@types/pino": "^6.3.8",
     "@types/pino-http": "^5.4.1",
     "@types/supertest": "^2.0.11",
+    "@types/swagger-ui-express": "^4.1.2",
     "@types/uuid": "^8.3.0",
+    "@types/yamljs": "^0.2.31",
     "babel-jest": "^27.0.2",
     "gts": "^3.1.0",
     "jest": "^27.0.4",
@@ -57,8 +59,10 @@
     "pino": "^6.11.3",
     "pino-http": "^5.5.0",
     "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^4.1.6",
     "ts-node": "^10.0.0",
     "typeorm": "^0.2.34",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yamljs": "^0.3.0"
   }
 }

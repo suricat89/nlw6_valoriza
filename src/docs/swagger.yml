@@ -1,0 +1,469 @@
+openapi: '3.0.2'
+info:
+  title: NLW#6 Valoriza
+  version: '1.0'
+tags:
+  - name: Healthcheck
+  - name: User
+  - name: Tag
+  - name: Compliment
+servers:
+  - url: http://localhost:5000
+  - url: https://nlw6valoriza.herokuapp.com
+paths:
+  /ping:
+    description: Healthcheck
+    get:
+      tags:
+        - "Healthcheck"
+      responses:
+        '200':
+          description: OK
+  /user:
+    get:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "User"
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: email
+          schema:
+            type: string
+        - in: query
+          name: admin
+          schema:
+            type: boolean
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: \[OK\] Action performed with success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref:  "#/components/schemas/UserDatabaseObj"
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequestPost'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDatabaseObj'
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: \[Precondition Failed\] Business rule violated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /user/auth:
+    post:
+      tags:
+        - "User"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAuthRequestPost'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: \[Forbidden\] Access forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tag:
+    get:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "Tag"
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: \[OK\] Action performed with success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref:  "#/components/schemas/TagDatabaseObj"
+                    - type: object
+                      properties:
+                        nameCustom:
+                          type: string
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "Tag"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagRequestPost'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagDatabaseObj'
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: \[Precondition Failed\] Business rule violated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /compliment:
+    post:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "Compliment"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComplimentRequestPost'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplimentDatabaseObj'
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '412':
+          description: \[Precondition Failed\] Business rule violated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /compliment/list/received/{userId}:
+    get:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "Compliment"
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: \[OK\] Action performed with success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ComplimentResponseGet"
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /compliment/list/sent/{userId}:
+    get:
+      security:
+        - BearerAuth: [admin]
+      tags:
+        - "Compliment"
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: \[OK\] Action performed with success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ComplimentResponseGet"
+        '400':
+          description: \[Bad Request\] Input fields different from expected
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: \[Unauthorized\] User unauthorized to perform this action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: \[Internal Server Error\] Generic error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    UserDatabaseObj:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        admin:
+          type: boolean
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    UserRequestPost:
+      type: object
+      required:
+        - "name"
+        - "password"
+        - "email"
+        - "admin"
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+        admin:
+          type: boolean
+    UserAuthRequestPost:
+      type: object
+      required:
+        - "email"
+        - "password"
+      properties:
+        email:
+          type: string
+          example: admin
+        password:
+          type: string
+          example: '12345678'
+    TagDatabaseObj:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    TagRequestPost:
+      type: object
+      required:
+        - "name"
+      properties:
+        name:
+          type: string
+    ComplimentDatabaseObj:
+      type: object
+      properties:
+        id:
+          type: string
+        userSenderId:
+          type: string
+        userReceiverId:
+          type: string
+        tagId:
+          type: string
+        message:
+          type: string
+        createdAt:
+          type: string
+    ComplimentRequestPost:
+      type: object
+      required:
+        - "message"
+        - "tagId"
+        - "userReceiver"
+      properties:
+        message:
+          type: string
+        tagId:
+          type: string
+        userReceiver:
+          type: string
+    ComplimentResponseGet:
+      allOf:
+        - $ref: '#/components/schemas/ComplimentDatabaseObj'
+        - type: object
+          properties:
+            userSender:
+              $ref: '#/components/schemas/UserDatabaseObj'
+            userReceiver:
+              $ref: '#/components/schemas/UserDatabaseObj'
+            tag:
+              $ref: '#/components/schemas/TagDatabaseObj'
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+    
