@@ -16,7 +16,7 @@
 - Github CI
 - Heroku CD
 
-## Try it at Heroku!
+## Try it on Heroku!
 https://nlw6valoriza.herokuapp.com/docs
 
 ## What is it?
