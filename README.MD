@@ -12,7 +12,12 @@
 - JWT with a per route access level validation
 - Joi (for smart request input validation)
 - Jest (integrated tests with 99% coverage!)
+- Swagger
 - Github CI
+- Heroku CD
+
+## Try it at Heroku!
+https://nlw6valoriza.herokuapp.com/docs
 
 ## What is it?
 
