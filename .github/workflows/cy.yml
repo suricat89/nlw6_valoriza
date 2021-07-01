@@ -1,4 +1,4 @@
-name: ci-test
+name: tests
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: test
           POSTGRES_DB: nlw6_valoriza
         ports:
-          - 15433:5432
+          - 5433:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -35,11 +35,8 @@ jobs:
           node-version: '14'
           check-latest: true
 
-      - name: Install yarn
-        run: npm install --global yarn
-
       - name: Install dependencies
-        run: yarn
+        run: npm install --silent
 
       - name: Run tests
-        run: yarn test
+        run: npm test
