@@ -1,5 +1,4 @@
 import {Request, RequestHandler} from 'express';
-import {StatusCodes} from 'http-status-codes';
 import jwt from 'jsonwebtoken';
 import {Unauthorized} from '../../common/errors';
 import {IJwtData} from '../../common/types';
@@ -11,9 +10,7 @@ export const validatePermission =
     await validateToken(req);
 
     if (!req.authenticated.admin && adminRequired) {
-      return res.status(StatusCodes.UNAUTHORIZED).send({
-        error: 'Unauthorized user',
-      });
+      throw new Unauthorized('Unauthorized user');
     }
 
     return next();
