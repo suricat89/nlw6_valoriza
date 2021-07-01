@@ -26,10 +26,10 @@ beforeAll(async () => {
   const listUserService = new ListUserService();
   const listTagService = new ListTagService();
   testData.adminUser = (
-    await listUserService.execute({admin: true} as UserModel)
+    await listUserService.execute({email: 'test.user.1@email.com'} as UserModel)
   ).pop();
   testData.nonAdminUser = (
-    await listUserService.execute({admin: false} as UserModel)
+    await listUserService.execute({email: 'test.user.2@email.com'} as UserModel)
   ).pop();
   testData.tag = (await listTagService.execute()).pop();
   testData.adminToken = await generateToken(testData.adminUser.email, '123');

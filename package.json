@@ -38,7 +38,7 @@
     "fix": "gts fix",
     "pretest": "NODE_ENV=test ts-node jest/jest.pretest.ts",
     "test": "NODE_ENV=test npm run jest",
-    "jest": "node_modules/.bin/jest",
+    "jest": "node_modules/.bin/jest --runInBand",
     "typeorm": "node ./node_modules/typeorm/cli.js",
     "runMigrations": "npm run typeorm migration:run"
   },
