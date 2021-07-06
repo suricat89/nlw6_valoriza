@@ -27,11 +27,11 @@ The **NLW#6 Valoriza** is an API where co-workers can send compliments to one an
 ## Installation
 
 ```bash
-yarn
+npm install
 
 sudo docker-compose up
 
-yarn dev
+npm run dev
 ```
 
 ## Environment variables
